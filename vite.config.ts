@@ -1,0 +1,19 @@
+import react from "@vitejs/plugin-react";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import tailwindcss from "@tailwindcss/vite";
+import { nitro } from "nitro/vite";
+import { defineConfig } from "vite";
+
+export default defineConfig({
+  plugins: [
+    tailwindcss(),
+    tanstackStart({ server: { entry: "server" } }),
+    nitro({ preset: "cloudflare-module" }),
+    react(),
+  ],
+  resolve: {
+    alias: { "@": `${process.cwd()}/src` },
+    tsconfigPaths: true,
+    dedupe: ["react", "react-dom", "@tanstack/react-query", "@tanstack/query-core"],
+  },
+});
